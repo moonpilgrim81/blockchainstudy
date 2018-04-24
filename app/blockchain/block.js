@@ -21,11 +21,13 @@ class Block {
             Difficulty    : ${this.difficulty}
             Data    : ${this.data}`;
     }
-
+    //generate 1st block.
     static genesis() {
         return new this('Genesis time','-----','f1r57-h45h',[], 0, DIFFICULTY);
     }
 
+
+    //generate block 
     static mineBlock(lastBlock,data) {
         let hash,timestamp;
         //const timestamp  = Date.now();
@@ -47,7 +49,7 @@ class Block {
         } while(hash.substring(0,difficulty) !== '0'.repeat(difficulty));
         return new this(timestamp,lastHash,hash,data,nonce,difficulty);
     }
-
+    
     static adjustDifficulty(lastBlock,currentTime) {
         let {difficulty} = lastBlock;
         difficulty = lastBlock.timestamp + MINE_RATE > currentTime ? difficulty + 1 : difficulty -1;

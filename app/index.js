@@ -18,7 +18,7 @@ app.get('/blocks', (req,res) => {
     res.json(bc.chain);
 });
 
-
+// provide web rest api to peers
 app.post('/mine', (req,res) => {
     //console.log(req);
     const block = bc.addBlock(req.body.data);
