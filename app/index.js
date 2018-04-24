@@ -1,4 +1,4 @@
-//webserice 
+//webservice 
 const express = require('express');
 // json parser
 const bodyParser = require('body-parser');
