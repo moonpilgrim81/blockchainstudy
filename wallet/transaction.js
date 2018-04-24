@@ -6,8 +6,8 @@ class Transaction {
         this.input = null ;
         this.ouputs = [];
     }
-
-    static  newTransaction(sWallet, recipent, amount){
+    //generate outdata with sender and recipient data
+    static  newTransaction(sWallet, recipient, amount){
         const transaction = new this();
         if (amount > sWallet.balance) {
                 console.log(`Ammount: ${amount} exceeds balace.`);
@@ -16,13 +16,13 @@ class Transaction {
 
         transaction.ouputs.push(...[
             {amount: sWallet.balance - amount, address: sWallet.publicKey },
-            {amount, address: recipent}
+            {amount, address: recipient}
         ])
         Transaction.signTransaction(transaction,sWallet);
         return transaction;
 
     }
-
+    //generate input data with signature (ransaction outputs)
     static signTransaction(transaction, sWallet) {
         transaction.input = {
             timestamp: Date.now(),
@@ -31,7 +31,7 @@ class Transaction {
             signature: sWallet.sign(ChainUtil.hash(transaction.ouputs))
         }
     }
-
+    // to verify transaction
     static verifyTransaction(transaction){
         return ChainUtil.verfiySignature(
             transaction.input.address,

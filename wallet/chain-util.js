@@ -1,3 +1,5 @@
+//blockchain utility 
+
 //hash for block
 const SHA256 = require('crypto-js/sha256');
 
@@ -14,15 +16,15 @@ class ChainUtil {
         return ec.genKeyPair();
     }
 
+    //generate uninque ID for transaction
     static genTranId(){
         return uuidV1();
     }
 
-
     static hash(data) {
         return SHA256(JSON.stringify(data)).toString();
     }
-
+    //verify transaction siginature with publickey
     static verfiySignature(publicKey, signature, dataHash){
         return ec.keyFromPublic(publicKey, 'hex').verify(dataHash,signature);
     }
